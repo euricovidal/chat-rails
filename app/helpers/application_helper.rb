@@ -7,7 +7,8 @@ module ApplicationHelper
     %w( index show new edit create update )
   end
 
-  def active_nav_item(controller, actions)
+  def active_nav_item(controller, actions, check = nil)
+    return if check.is_a?(Proc) && !check.()
     'active' if active_actions?(controller, actions)
   end
 
