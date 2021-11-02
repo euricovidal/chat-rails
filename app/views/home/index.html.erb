@@ -2,13 +2,13 @@
 
 <section class="section">
   <div class="row justify-content-center">
-    <div class="col-12 col-sm-6 col-lg-4">
+    <div class="col-12 col-sm-6 col-lg-3">
       <div class="card">
         <div class="card-header">
           <h4>Users</h4>
         </div>
         <div class="card-body">
-          <ul class="list-unstyled list-unstyled-border" id="who_is_online" style="overflow: hidden;outline: none;height: 295px;">
+          <ul class="list-unstyled list-unstyled-border" id="users_list" style="overflow: hidden;outline: none;height: 78vh;">
             <% User.order(:name).each do |user| %>
               <% next if user.id == current_user.id %>
               <li class="media" data-id="<%= user.id %>">
@@ -22,12 +22,12 @@
       </div>
     </div>
 
-    <div class="col-12 col-sm-6 col-lg-8">
+    <div class="col-12 col-sm-6 col-lg-9">
       <div class="card chat-box" id="chat_general">
         <div class="card-header">
           <h4>Chat general</h4>
         </div>
-        <div class="card-body chat-content" tabindex="2" style="overflow: hidden; outline: none;">
+        <div class="card-body chat-content" tabindex="2" style="overflow: hidden; outline: none; height: 78vh">
           <% ChatMessage.where(to_user_id: nil).order(created_at: :desc).limit(15).reverse.each do |message| %>
             <% box_style = message.user_id == current_user.id ? 'right' : 'left' %>
             <div class="chat-item chat-<%= box_style %>" style="">
