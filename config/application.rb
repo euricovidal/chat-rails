@@ -7,7 +7,7 @@ require "active_job/railtie"
 require "active_record/railtie"
 require "active_storage/engine"
 require "action_controller/railtie"
-# require "action_mailer/railtie"
+require "action_mailer/railtie"
 require "action_mailbox/engine"
 require "action_text/engine"
 require "action_view/railtie"
@@ -25,11 +25,6 @@ module App
     config.i18n.default_locale            = :en
     config.time_zone                      = 'UTC'
     config.generators.scaffold_stylesheet = false
-    config.generatores do |g|
-      g.test_framework false
-      g.view_specs false
-      g.helper_specs false
-    end
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
 
