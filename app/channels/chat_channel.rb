@@ -1,7 +1,7 @@
 class ChatChannel < ApplicationCable::Channel
   def subscribed
     stream_from 'chat_channel'
-    stream_from "chat_#{current_user.id}_channel"
+    stream_for "chat_#{current_user.id}_channel"
 
     Rails.logger.info "==========> subscribed"
   end
