@@ -13,6 +13,7 @@ This projects is mainly focused on chat message to show the simple example using
 - Ruby: 3.0.2
 - Rails: 6.1.4.1
 - Postgresql: 13.4
+- Redis 6.2
 
 <hr>
 
