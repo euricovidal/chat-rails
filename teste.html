@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Subscription</title>
+    <script>
+      const ws = new WebSocket('ws://localhost:3000/cable?user_id=1');
+      ws.onopen = function() {
+        const identifier = '{"channel":"ChatChannel"}';
+        ws.send(JSON.stringify({"command":"subscribe","identifier":identifier}));
+
+        console.log('conectou');
+
+        ws.send(JSON.stringify(
+          {"identifier":identifier,"message":{"from":{"id":1,"name":"Eurico"},"message":"dfdf","created_at":"2021-11-12T02:16:24.648Z"}}
+        ))
+        document.querySelector('#send').disabled = false;
+        document.querySelector('#send').addEventListener('click', function() {
+          ws.send(document.querySelector('#message').value);
+        });
+      }
+
+      ws.onmessage = function(msg) {
+        console.log(msg)
+        document.querySelector('#messages').innerHTML += `<div>${msg.data}</div>`;
+      }
+
+      ws.onerror = function(error) {
+        console.log("error: ", error)
+      }
+    </script>
+  </head>
+  <body>
+    <div>
+      <input id="message" placeholder="Message">
+      <button id="send" disabled="true">Send</button>
+    </div>
+    <div id="messages"></div>
+  </body>
+</html>

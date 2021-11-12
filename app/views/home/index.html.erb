@@ -9,11 +9,23 @@
         </div>
         <div class="card-body">
           <ul class="list-unstyled list-unstyled-border" id="users_list" style="overflow: hidden;outline: none;height: 78vh;">
-            <% User.order(:name).each do |user| %>
+            <% User.order(online_at: :desc).each do |user| %>
               <% next if user.id == current_user.id %>
               <li class="media" data-id="<%= user.id %>">
                 <div class="media-body">
                   <div class="mt-0 mb-1 font-weight-bold"><%= user.name %></div>
+                  <% if user.online? %>
+                    <div class="text-success text-small font-600-bold user-status">
+                      <i class="fas fa-circle"></i> Online
+                    </div>
+                  <% else %>
+                    <div class="text-small font-weight-600 text-muted user-status">
+                      <i class="fas fa-circle"></i> Offline
+                    </div>
+                  <% end %>
+                  <% if user.online_at %>
+                    <div class="mt-0 mb-1"><small>(<%= time_ago_in_words(user.online_at) %>)</small></div>
+                  <% end %>
                 </div>
               </li>
             <% end %>
@@ -27,7 +39,7 @@
         <div class="card-header">
           <h4>Chat general</h4>
         </div>
-        <div class="card-body chat-content" tabindex="2" style="overflow: hidden; outline: none; height: 78vh">
+        <div class="card-body chat-content" data-controller="scroll" style="overflow: hidden; outline: none; height: 78vh">
           <% ChatMessage.where(to_user_id: nil).order(created_at: :desc).limit(15).reverse.each do |message| %>
             <% box_style = message.user_id == current_user.id ? 'right' : 'left' %>
             <div class="chat-item chat-<%= box_style %>" style="">

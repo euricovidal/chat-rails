@@ -4,7 +4,7 @@ class ChatMessagesController < ApplicationController
   end
 
   def create
-    ChatMessage.create!(user_id: current_user.id, **chat_params)
+    ChatMessage.create!(user: current_user, **chat_params)
   end
 
   private

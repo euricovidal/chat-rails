@@ -80,6 +80,7 @@ GEM
     crass (1.0.6)
     dry-inflector (0.2.1)
     erubi (1.10.0)
+    eventmachine (1.2.7)
     ffi (1.15.4)
     geared_pagination (1.1.0)
       activesupport (>= 5.0)
@@ -218,9 +219,17 @@ GEM
       rack-proxy (>= 0.6.1)
       railties (>= 5.2)
       semantic_range (>= 2.3.0)
+    websocket (1.2.9)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
+    websocket-eventmachine-base (1.2.0)
+      eventmachine (~> 1.0)
+      websocket (~> 1.0)
+      websocket-native (~> 1.0)
+    websocket-eventmachine-client (1.3.0)
+      websocket-eventmachine-base (~> 1.0)
     websocket-extensions (0.1.5)
+    websocket-native (1.0.0)
     zeitwerk (2.5.1)
 
 PLATFORMS
@@ -242,7 +251,7 @@ DEPENDENCIES
   rack-timeout
   rails (~> 6.1.4, >= 6.1.4.1)
   ransack
-  redis
+  redis (~> 4.0)
   sass-rails (>= 6)
   sidekiq
   spreadsheet_architect
@@ -251,6 +260,7 @@ DEPENDENCIES
   tzinfo-data
   web-console (>= 4.1.0)
   webpacker (~> 5.0)
+  websocket-eventmachine-client
 
 RUBY VERSION
    ruby 3.0.2p107

@@ -1,18 +1,9 @@
 services:
-  web:
-    build: .
-    # command: sleep 999999
-    command: bundle exec rails s -b 0.0.0.0 -p 3000
-    stdin_open: true
-    tty: true
-    environment:
-      TZ: America/Sao_Paulo
-      DATABASE_URL: postgres://app_demo:app_demo@db:5432/app_demo
-      RAILS_ENV: development
+  redis:
+    image: redis
+    command: redis-server --requirepass app_demo
     ports:
-      - "3000:3000"
-    volumes:
-      - .:/usr/src/app
+      - "6379:6379"
 
   db:
     image: postgres
@@ -22,3 +13,19 @@ services:
       POSTGRES_PASSWORD: app_demo
     ports:
       - "5432:5432"
+
+  web:
+    build: .
+    # command: sleep 999999
+    command: bundle exec rails s -b 0.0.0.0 -p 3000
+    stdin_open: true
+    tty: true
+    environment:
+      TZ: America/Sao_Paulo
+      DATABASE_URL: postgres://app_demo:app_demo@db:5432/app_demo
+      REDIS_URL: redis://:app_demo@redis:6379/1
+      RAILS_ENV: development
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/src/app

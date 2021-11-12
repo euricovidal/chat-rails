@@ -26,5 +26,10 @@
       </div>
     </div>
     <%= render 'shared/toastr' %>
+    <script type="text/javascript">
+      $(function() {
+        window.currentUser = <%= raw current_user.attributes.to_json %>;
+      });
+    </script>
   </body>
 </html>
